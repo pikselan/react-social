@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+input {
+  &:focus {
+    outline: none;
+  }
+}
+
+.register,
+.login {
+  min-height: 100vh;
+  @media (min-width: 768px) {
+    background: url(/assets/images/bg.jpg) no-repeat center center fixed;
+  }
+  background-size: cover;
+  .form {
+    min-height: 100vh;
+    width: 100vw;
+    max-width: 400px;
+  }
+}
+
+.page {
+  .navbar {
+    .search {
+      width: 30%;
+      input {
+        width: 100%;
+      }
+    }
+    .brand,
+    .menu {
+      width: 35%;
+    }
+  }
+}
+
+@import "~bootstrap/scss/bootstrap.scss";
