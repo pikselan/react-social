@@ -49,6 +49,41 @@ input {
       width: 35%;
     }
   }
+  .main {
+    .menu {
+    }
+    .trending {
+      a {
+        color: #212529 !important;
+      }
+      li {
+        overflow: hidden;
+      }
+    }
+    .status {
+      .card {
+        margin-bottom: 2rem;
+        .card-body {
+          a {
+            color: #212529 !important;
+            margin-right: 0.5rem;
+          }
+          .post {
+            a {
+              font-weight: bold;
+            }
+            font-size: 16px;
+          }
+          .comment-item {
+            font-size: 14px;
+            a {
+              margin-left: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @import "~bootstrap/scss/bootstrap.scss";
