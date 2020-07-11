@@ -6,6 +6,27 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
+import store from "./store";
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./utils/auth";
+import { setCurrentUser, logoutUser } from "./store/actions/auth";
+
+if (localStorage.jwtToken) {
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+
+  const decoded: any = jwt_decode(token);
+
+  store.dispatch(setCurrentUser(decoded));
+
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    store.dispatch(logoutUser());
+
+    window.location.href = "./login";
+  }
+}
+
 function App() {
   return (
     <Router>
