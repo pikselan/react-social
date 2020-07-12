@@ -10,7 +10,7 @@ const initialState = {
 
 export default function (
   state = initialState,
-  action: { type: any; payload: Object }
+  action: { type: any; payload: any }
 ) {
   switch (action.type) {
     case SET_CURRENT_USER:

@@ -7,7 +7,11 @@ import icAdd from "../assets/images/ic-add.svg";
 import icNotif from "../assets/images/ic-notif.svg";
 import icProfile from "../assets/images/ic-profile.svg";
 
-export default function Navbar() {
+export default function Navbar(props: any) {
+  const logoutHandle = (e: any) => {
+    e.preventDefault();
+    props.logoutUser();
+  };
   return (
     <>
       <div className="container-fluid fixed-top border-bottom bg-white d-none d-md-block">
@@ -65,7 +69,11 @@ export default function Navbar() {
                       <hr className="dropdown-divider" />
                     </li>
                     <li>
-                      <Link className="dropdown-item" to="/login">
+                      <Link
+                        className="dropdown-item"
+                        to="/login"
+                        onClick={logoutHandle}
+                      >
                         Logout
                       </Link>
                     </li>
