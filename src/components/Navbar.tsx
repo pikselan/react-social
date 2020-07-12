@@ -7,7 +7,10 @@ import icAdd from "../assets/images/ic-add.svg";
 import icNotif from "../assets/images/ic-notif.svg";
 import icProfile from "../assets/images/ic-profile.svg";
 
-export default function Navbar(props: any) {
+import { connect } from "react-redux";
+import { logoutUser } from "../store/actions/auth";
+
+function Navbar(props: any) {
   const logoutHandle = (e: any) => {
     e.preventDefault();
     props.logoutUser();
@@ -129,3 +132,10 @@ export default function Navbar(props: any) {
     </>
   );
 }
+
+const mapStateToProps = (state: any) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { logoutUser })(Navbar);

@@ -4,13 +4,16 @@ import Menu from "./parts/Menu";
 import Post from "./parts/Post";
 import Trending from "./parts/Trending";
 
+// import { connect } from "react-redux";
+// import { logoutUser } from "../store/actions/auth";
+
 export default function Home(props: any) {
   return (
     <div className="page container-fluid p-0">
       <Navbar />
       <section className="main container mt-5 pt-3 pt-md-5 px-2 mb-5 mb-md-1">
         <div className="d-flex justify-content-between">
-          <Menu {...props} logoutUser={props.logoutUser} />
+          <Menu {...props} />
           <Post />
           <Trending />
         </div>

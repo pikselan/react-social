@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
+import { connect } from "react-redux";
 import { registerUser } from "../store/actions/auth";
 
-export default function Register(props: any) {
+function Register(props: any) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +19,8 @@ export default function Register(props: any) {
       password,
       passwordConfirm,
     };
-    registerUser(userData, props.history);
+
+    props.registerUser(userData, props.history);
   };
 
   return (
@@ -30,7 +33,7 @@ export default function Register(props: any) {
           <p>Not only say hi, but you have to make connections</p>
           <hr />
           <h3>Create your account</h3>
-          <form className="row">
+          <form className="row" onSubmit={onSubmit}>
             <div className="my-2">
               <label className="form-label my-0 mx-3">Name</label>
               <input
@@ -77,7 +80,6 @@ export default function Register(props: any) {
               <button
                 type="submit"
                 className="btn btn-primary mr-2 mb-2 rounded rounded-pill"
-                onClick={onSubmit}
               >
                 Sign up
               </button>
@@ -94,3 +96,10 @@ export default function Register(props: any) {
     </div>
   );
 }
+
+const mapStateToProps = (state: any) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { registerUser })(Register);

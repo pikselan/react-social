@@ -8,10 +8,7 @@ const initialState = {
   userLoading: false,
 };
 
-export default function (
-  state = initialState,
-  action: { type: any; payload: any }
-) {
+export default function (state = initialState, action: any) {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {

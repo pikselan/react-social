@@ -30,14 +30,16 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
 
   if (decoded.exp < currentTime) {
-    localStorage.removeItem("jwtToken");
-    setAuthToken(false);
-    store.dispatch(setCurrentUser({}));
+    store.dispatch(logoutUser());
     window.location.href = "./login";
   }
 }
 
 function App(props: any) {
+  const isAuthenticated = (componentTrue: any, componentFalse: any) => {
+    return props.auth.isAuthenticated === true ? componentTrue : componentFalse;
+  };
+
   return (
     <Router>
       <Switch>
@@ -45,32 +47,16 @@ function App(props: any) {
           exact
           path="/"
           render={() =>
-            props.auth.isAuthenticated === true ? (
-              <Home {...props} logoutUser={logoutUser()} />
-            ) : (
-              <Redirect to="/login" />
-            )
+            isAuthenticated(<Home {...props} />, <Redirect to="/login" />)
           }
         />
         <Route
           path="/login"
-          render={() =>
-            props.auth.isAuthenticated === true ? (
-              <Redirect to="/" />
-            ) : (
-              <Login {...props} />
-            )
-          }
+          render={() => isAuthenticated(<Redirect to="/" />, <Login />)}
         />
         <Route
           path="/register"
-          render={() =>
-            props.auth.isAuthenticated === true ? (
-              <Redirect to="/" />
-            ) : (
-              <Register {...props} />
-            )
-          }
+          render={() => isAuthenticated(<Redirect to="/" />, <Register />)}
         />
         <Route component={NotFound} />
       </Switch>

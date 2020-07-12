@@ -2,38 +2,18 @@ import axios from "../../utils/axios";
 import setAuthToken from "../../utils/auth";
 import jwt_decode from "jwt-decode";
 
-import * as types from "../types";
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "../types";
 
-export interface setCurrentUser {
-  type: types.SET_CURRENT_USER;
-  payload: any;
-}
-export interface setUserLoading {
-  type: types.USER_LOADING;
-}
-export interface registerUser {
-  type: types.SET_CURRENT_USER;
-  payload: any;
-}
-export interface loginUser {
-  type: types.SET_CURRENT_USER;
-  payload: any;
-}
-export interface logoutUser {
-  type: types.SET_CURRENT_USER;
-  payload: any;
-}
-
-export const setCurrentUser = (decoded: any): setCurrentUser => {
+export const setCurrentUser = (decoded: any) => {
   return {
-    type: types.SET_CURRENT_USER,
+    type: SET_CURRENT_USER,
     payload: decoded,
   };
 };
 
-export const setUserLoading = (): setUserLoading => {
+export const setUserLoading = () => {
   return {
-    type: types.USER_LOADING,
+    type: USER_LOADING,
   };
 };
 
@@ -43,9 +23,7 @@ export const registerUser = (userData: any, history: any) => (
   axios
     .post(`/users/register`, userData)
     .then((res) => history.push("/login"))
-    .catch((err) =>
-      dispatch({ type: types.GET_ERRORS, payload: err.response.data })
-    );
+    .catch((err) => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 export const loginUser = (userData: any) => (dispatch: any) => {
@@ -60,9 +38,7 @@ export const loginUser = (userData: any) => (dispatch: any) => {
       const decoded = jwt_decode(token);
       dispatch(setCurrentUser(decoded));
     })
-    .catch((err) =>
-      dispatch({ type: types.GET_ERRORS, payload: err.response.data })
-    );
+    .catch((err) => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 export const logoutUser = () => (dispatch: any) => {
