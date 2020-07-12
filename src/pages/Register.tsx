@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import history from "../utils/history";
 
 import { connect } from "react-redux";
 import { registerUser } from "../store/actions/auth";
@@ -20,7 +21,23 @@ function Register(props: any) {
       passwordConfirm,
     };
 
-    props.registerUser(userData, props.history);
+    props.registerUser(userData, history);
+  };
+
+  const isValidForm = (data: any) => {
+    if (data) {
+      return "is-invalid";
+    } else {
+      return "";
+    }
+  };
+
+  const isValidInfo = (data: any) => {
+    if (data) {
+      return <div className="invalid-feedback mx-3">{data}</div>;
+    } else {
+      return "";
+    }
   };
 
   return (
@@ -39,30 +56,39 @@ function Register(props: any) {
               <input
                 type="text"
                 name="name"
-                className="form-control rounded rounded-pill"
+                className={`form-control rounded rounded-pill ${isValidForm(
+                  props.error.name
+                )}`}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
+              {isValidInfo(props.error.name)}
             </div>
             <div className="my-2">
               <label className="form-label my-0 mx-3">Email address</label>
               <input
                 type="email"
                 name="name"
-                className="form-control rounded rounded-pill"
+                className={`form-control rounded rounded-pill ${isValidForm(
+                  props.error.email
+                )}`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {isValidInfo(props.error.email)}
             </div>
             <div className="my-2">
               <label className="form-label my-0 mx-3">Password</label>
               <input
                 type="password"
                 name="password"
-                className="form-control rounded rounded-pill"
+                className={`form-control rounded rounded-pill ${isValidForm(
+                  props.error.password
+                )}`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {isValidInfo(props.error.password)}
             </div>
             <div className="my-2">
               <label className="form-label my-0 mx-3">
@@ -71,10 +97,13 @@ function Register(props: any) {
               <input
                 type="password"
                 name="passwordConfirm"
-                className="form-control rounded rounded-pill"
+                className={`form-control rounded rounded-pill ${isValidForm(
+                  props.error.passwordConfirm
+                )}`}
                 value={passwordConfirm}
                 onChange={(e) => setPasswordConfirm(e.target.value)}
               />
+              {isValidInfo(props.error.passwordConfirm)}
             </div>
             <div className="my-2 d-flex align-items-center flex-wrap">
               <button
@@ -99,7 +128,7 @@ function Register(props: any) {
 
 const mapStateToProps = (state: any) => ({
   auth: state.auth,
-  errors: state.errors,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { registerUser })(Register);

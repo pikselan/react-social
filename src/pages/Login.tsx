@@ -18,6 +18,22 @@ function Login(props: any) {
     props.loginUser(userData);
   };
 
+  const isValidForm = (data: any) => {
+    if (data) {
+      return "is-invalid";
+    } else {
+      return "";
+    }
+  };
+
+  const isValidInfo = (data: any) => {
+    if (data) {
+      return <div className="invalid-feedback mx-3">{data}</div>;
+    } else {
+      return "";
+    }
+  };
+
   return (
     <div className="register container-fluid p-0">
       <div className="d-flex justify-content-start">
@@ -34,25 +50,31 @@ function Login(props: any) {
               <input
                 type="email"
                 name="email"
-                className="form-control rounded rounded-pill"
+                className={`form-control rounded rounded-pill ${isValidForm(
+                  props.error.email
+                )}`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {isValidInfo(props.error.email)}
             </div>
             <div className="my-2">
               <label className="form-label my-0 mx-3">Password</label>
               <input
                 type="password"
                 name="password"
-                className="form-control rounded rounded-pill"
+                className={`form-control rounded rounded-pill ${isValidForm(
+                  props.error.password
+                )}`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span className="small mx-3">
-                <a href="/">Forgot Password?</a>
-              </span>
+              {isValidInfo(props.error.password)}
             </div>
-            <div className="my-2 d-flex align-items-center flex-wrap">
+            <span className="small mx-3">
+              <Link to="/">Forgot Password?</Link>
+            </span>
+            <div className="my-4 d-flex align-items-center flex-wrap">
               <button
                 type="submit"
                 className="btn btn-primary mr-2 mb-2 rounded rounded-pill"
@@ -75,7 +97,7 @@ function Login(props: any) {
 
 const mapStateToProps = (state: any) => ({
   auth: state.auth,
-  errors: state.errors,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { loginUser })(Login);

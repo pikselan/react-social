@@ -14,7 +14,17 @@ import { ToastContainer } from "react-toastify";
 ReactDOM.render(
   <Provider store={store}>
     <App />
-    <ToastContainer></ToastContainer>
+    <ToastContainer
+      position="bottom-left"
+      autoClose={3000}
+      hideProgressBar
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
   </Provider>,
   document.getElementById("root")
 );

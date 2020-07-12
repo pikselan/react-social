@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import history from "./utils/history";
 
 import Home from "./pages/private/Home";
 import Register from "./pages/Register";
@@ -31,7 +27,7 @@ if (localStorage.jwtToken) {
 
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
-    window.location.href = "./login";
+    window.location.href = "/login";
   }
 }
 
@@ -41,7 +37,7 @@ function App(props: any) {
   };
 
   return (
-    <Router>
+    <Router history={history}>
       <Switch>
         <Route
           exact

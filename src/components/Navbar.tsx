@@ -135,7 +135,7 @@ function Navbar(props: any) {
 
 const mapStateToProps = (state: any) => ({
   auth: state.auth,
-  errors: state.errors,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { logoutUser })(Navbar);
