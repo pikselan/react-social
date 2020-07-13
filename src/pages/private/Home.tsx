@@ -4,10 +4,9 @@ import Menu from "./parts/Menu";
 import Post from "./parts/Post";
 import Trending from "./parts/Trending";
 
-// import { connect } from "react-redux";
-// import { logoutUser } from "../store/actions/auth";
+import { connect } from "react-redux";
 
-export default function Home(props: any) {
+function Home(props: any) {
   return (
     <div className="page container-fluid p-0">
       <Navbar />
@@ -21,3 +20,10 @@ export default function Home(props: any) {
     </div>
   );
 }
+
+const mapStateToProps = (state: any) => ({
+  auth: state.auth,
+  error: state.error,
+});
+
+export default connect(mapStateToProps, {})(Home);
