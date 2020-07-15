@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from "./utils/history";
 
@@ -14,24 +14,21 @@ import { setCurrentUser, logoutUser } from "./store/actions/auth";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-if (localStorage.jwtToken) {
-  const token = localStorage.jwtToken;
-
-  setAuthToken(token);
-
-  const decoded: any = jwt_decode(token);
-
-  store.dispatch(setCurrentUser(decoded));
-
-  const currentTime = Date.now() / 1000;
-
-  if (decoded.exp < currentTime) {
-    store.dispatch(logoutUser());
-    window.location.href = "/login";
-  }
-}
-
 function App(props: any) {
+  useEffect(() => {
+    if (localStorage.jwtToken) {
+      const token = localStorage.jwtToken;
+      setAuthToken(token);
+      const decoded: any = jwt_decode(token);
+      store.dispatch(setCurrentUser(decoded));
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        store.dispatch(logoutUser());
+        history.push("/login");
+      }
+    }
+  }, []);
+
   const isAuthenticated = (componentTrue: any, componentFalse: any) => {
     return props.auth.isAuthenticated === true ? componentTrue : componentFalse;
   };
