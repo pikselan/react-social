@@ -41,7 +41,7 @@ function Home(props: any) {
       <section className="main container mt-5 pt-3 pt-md-5 px-2 mb-5 mb-md-1">
         <div className="d-flex justify-content-between">
           <Menu {...props} />
-          <Post />
+          <Post posts={posts} />
           <Trending tags={tags} />
         </div>
       </section>
