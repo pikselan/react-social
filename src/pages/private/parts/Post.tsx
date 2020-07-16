@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 import axios from "../../../utils/axios";
 import { toast } from "react-toastify";
+import { Button } from "../../../components/Link";
 
 export default function Post(props: any) {
   const [posts, setPosts] = useState([]);
@@ -33,7 +34,26 @@ export default function Post(props: any) {
         toast.dark("Network unavailable, try again");
       });
     getAllPosts();
-    // e.target.comment.reset();
+  };
+
+  const postStatus = async (e: any) => {
+    e.preventDefault();
+
+    const statusData = {
+      text: e.target.status.value,
+    };
+
+    e.target.status.value = "";
+    e.target.status.rows = 1;
+    await axios
+      .post("/users/post", statusData)
+      .then((res) => {
+        console.log(`status update: ${new Date()}`);
+      })
+      .catch((err) => {
+        toast.dark("Network unavailable, try again");
+      });
+    getAllPosts();
   };
 
   useEffect(() => {
@@ -42,6 +62,35 @@ export default function Post(props: any) {
 
   return (
     <div className="status col-md-5">
+      <div className="card">
+        <div className="card-body">
+          <form onSubmit={postStatus}>
+            <textarea
+              className={`form-control mt-3`}
+              rows={1}
+              style={{ resize: "none" }}
+              name="status"
+              onFocus={(e) => (e.target.rows = 3)}
+              placeholder="Post a status"
+            ></textarea>
+            {/* <div className="form-file form-file-sm mt-2">
+              <Button className="btn-secondary btn-sm">Add Image</Button>
+              <input
+                type="file"
+                className="form-file-input"
+                id="customFileSm"
+              />
+              <label className="form-file-label" htmlFor="customFileSm">
+                <span className="form-file-text">Add image</span>
+                <span className="form-file-button">Browse</span>
+              </label>
+            </div> */}
+            <Button type="submit" className="btn-primary btn-sm mt-3 mr-3">
+              Post a status
+            </Button>
+          </form>
+        </div>
+      </div>
       {posts.map((item: any, index: any) => {
         return (
           <div className="card" key={index}>
@@ -53,8 +102,8 @@ export default function Post(props: any) {
               />
               <div className="d-flex align-items-start flex-column">
                 <h6 className="m-0">{item.userId.name}</h6>
-                <span className="small font-weight-light">
-                  <TimeAgo date={item.updatedAt} />
+                <span className="small">
+                  <TimeAgo date={item.created_at} />
                 </span>
               </div>
             </div>
@@ -62,15 +111,15 @@ export default function Post(props: any) {
             <div className="card-body">
               <span className="card-text">
                 <div className="post">
-                  <Link className="" to="/">
+                  <Link className="font-weight-bold" to="/">
                     @{item.userId.username}
                   </Link>
                   {item.text.replace(/(#)\w+/g, (i: any) => ` ${i} `)}
                 </div>
-                <div className="comment pl-3 small font-weight-light">
+                <div className="comment pl-3 small">
                   {item.comments.map((item: any, index: any) => {
                     return (
-                      <div className="comment-item" key={index}>
+                      <div className="comment-item mt-1" key={index}>
                         <Link className="" to="/">
                           @{item.userId.username}
                         </Link>
@@ -99,7 +148,6 @@ export default function Post(props: any) {
                       required
                     />
                     <input type="submit" hidden />
-                    {/* <input type="reset" defaultValue="Reset" hidden onSubmit={() =>} /> */}
                   </form>
                 </div>
               </span>

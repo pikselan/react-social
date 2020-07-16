@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { User, Button } from "../../../components/Link";
+import { User } from "../../../components/Link";
 
 export default function Menu(props: any) {
+  // const [showStatus, setShowStatus] = useState(false);
+  // const clickToShowStatus = () => {
+  //   setShowStatus(!showStatus);
+  // };
   const user = props.auth.user.user;
   return (
     <div className="menu col-3 d-none d-md-block">
@@ -23,8 +27,6 @@ export default function Menu(props: any) {
           </div>
         </div>
       </div>
-      <textarea className="form-control mt-3" rows={4}></textarea>
-      <Button className="btn-primary mb-4 mt-3">Post a status</Button>
       <ul className="list-group">
         <li className="list-group-item">
           <Link to="/explorer">Explore</Link>

@@ -86,6 +86,7 @@ export function Button(props: any) {
       className={className.join(" ")}
       style={props.style}
       onClick={onClick}
+      type={props.type}
     >
       {props.children}
     </button>
