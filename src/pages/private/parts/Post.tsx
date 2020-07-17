@@ -30,7 +30,9 @@ export default function Post(props: any) {
     await axios
       .post("/users/comment", commentData)
       .then((res) => {
-        console.log(`comment sent: ${new Date()}`);
+        console.log(
+          `comment sent: ${res.status} : ${res.statusText} : ${new Date()}`
+        );
       })
       .catch((err) => {
         toast.dark("Network unavailable, try again");
@@ -41,23 +43,25 @@ export default function Post(props: any) {
   const postStatus = async (e: any) => {
     e.preventDefault();
 
-    // const formData = new FormData();
-    // formData.set("text", e.target.status.value);
-    // formData.append("image", image.raw, `${Date.now()}_${Math.random().toString(36).substr(2)}.`);
+    const tags = e.target.status.value.match(/(#)\w+/g) || [];
 
-    const statusData = {
-      text: e.target.status.value,
-      image: image.raw,
-    };
+    const formData = new FormData();
+    formData.set("text", e.target.status.value);
+    formData.set("tags", tags);
+    formData.append("image", image.raw);
 
     e.target.status.value = "";
     e.target.status.rows = 1;
     setImage({ preview: "", raw: "" });
 
     await axios
-      .post("/users/post", statusData)
+      .post("/users/post", formData, {
+        headers: { "content-type": `multipart/form-data` },
+      })
       .then((res) => {
-        console.log(`status update: ${new Date()}`);
+        console.log(
+          `status update: ${res.status} : ${res.statusText} : ${new Date()}`
+        );
       })
       .catch((err) => {
         toast.dark("Network unavailable, try again");
@@ -84,20 +88,12 @@ export default function Post(props: any) {
       try {
         const compressedFile = await imageCompression(imageFile, options);
 
-        let reader = new FileReader();
-        reader.readAsDataURL(compressedFile);
-        // reader.readAsBinaryString(compressedFile);
-        reader.onload = (i: any) => {
-          handleImageCompressed(
-            URL.createObjectURL(compressedFile),
-            i.target.result
-          );
-        };
+        let fileImage = new File(
+          [compressedFile],
+          `${Date.now()}_${Math.random().toString(36).substr(2)}.jpg`
+        );
 
-        // handleImageCompressed(
-        //   URL.createObjectURL(compressedFile),
-        //   compressedFile
-        // );
+        handleImageCompressed(URL.createObjectURL(compressedFile), fileImage);
       } catch (error) {
         console.log(error);
       }
@@ -147,6 +143,7 @@ export default function Post(props: any) {
                 className="d-none"
                 type="file"
                 accept="image/*"
+                // accept=".png,.jpg.,.jpeg"
                 onChange={handleImage}
               />
             </div>
@@ -172,11 +169,15 @@ export default function Post(props: any) {
                 </span>
               </div>
             </div>
-            <img
-              src={`${process.env.REACT_APP_HOST}/${item.image}`}
-              className="card-img-top rounded-0"
-              alt=""
-            />
+            {item.image ? (
+              <img
+                src={`${process.env.REACT_APP_HOST}/${item.image}`}
+                className="card-img-top rounded-0"
+                alt=""
+              />
+            ) : (
+              ""
+            )}
             <div className="card-body">
               <span className="card-text">
                 <div className="post">
