@@ -13,7 +13,7 @@ export default function Post(props: any) {
   const getAllPosts = async () => {
     await axios
       .get("/users/posts")
-      .then((res) => setPosts(res.data))
+      .then((res) => setPosts(res.data.docs))
       .catch((err) => {
         toast.dark("Network unavailable, try again");
       });
@@ -142,8 +142,7 @@ export default function Post(props: any) {
                 id="file-input"
                 className="d-none"
                 type="file"
-                accept="image/*"
-                // accept=".png,.jpg.,.jpeg"
+                accept=".png,.jpg.,.jpeg"
                 onChange={handleImage}
               />
             </div>
@@ -197,6 +196,16 @@ export default function Post(props: any) {
                       </div>
                     );
                   })}
+
+                  <div className="comment-item mt-1">
+                    {item.commentCount > 5 ? (
+                      <Link className="font-weight-bold" to="/">
+                        More...
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
                 <div className="input-comment mt-3">
                   <form onSubmit={postComment}>

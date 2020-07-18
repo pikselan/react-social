@@ -3,6 +3,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from "./utils/history";
 
 import Home from "./pages/private/Home";
+import Tag from "./pages/private/Tag";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -41,6 +42,12 @@ function App(props: any) {
           path="/"
           render={() =>
             isAuthenticated(<Home {...props} />, <Redirect to="/login" />)
+          }
+        />
+        <Route
+          path="/tag"
+          render={() =>
+            isAuthenticated(<Tag {...props} />, <Redirect to="/login" />)
           }
         />
         <Route

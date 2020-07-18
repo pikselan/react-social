@@ -26,7 +26,12 @@ export default function Trending(props: any) {
         {tags.map((item: any, index: any) => {
           return (
             <li className="list-group-item" key={index}>
-              <Link to={`/${item.tag}`}>{item.tag}</Link>
+              <Link
+                to={`/tag/${item.tag.replace(/(#)/g, "")}`}
+                className="d-block"
+              >
+                {item.tag}
+              </Link>
             </li>
           );
         })}
