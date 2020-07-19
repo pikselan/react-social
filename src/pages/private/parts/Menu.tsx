@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 import { User } from "../../../components/Link";
 
 export default function Menu(props: any) {
-  // const [showStatus, setShowStatus] = useState(false);
-  // const clickToShowStatus = () => {
-  //   setShowStatus(!showStatus);
-  // };
   const user = props.auth.user.user;
   return (
     <div className="menu col-3 d-none d-md-block">

@@ -7,7 +7,7 @@ import { Button } from "../../../components/Link";
 import imageCompression from "browser-image-compression";
 
 export default function Post(props: any) {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any>([]);
   const [image, setImage] = useState({ preview: "", raw: "" });
 
   const getAllPosts = async () => {
@@ -62,11 +62,11 @@ export default function Post(props: any) {
         console.log(
           `status update: ${res.status} : ${res.statusText} : ${new Date()}`
         );
+        setPosts([res.data, ...posts]);
       })
       .catch((err) => {
         toast.dark("Network unavailable, try again");
       });
-    getAllPosts();
   };
 
   const handleImageCompressed = (preview: any, raw: any) => {
