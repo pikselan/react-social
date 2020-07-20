@@ -124,7 +124,7 @@ export default function Post(props: any) {
 
   return (
     <div className="status col-md-5">
-      <div className="card" id="top">
+      <div className="card">
         <div className="card-body">
           <form onSubmit={postStatus}>
             <textarea
@@ -253,13 +253,13 @@ export default function Post(props: any) {
         );
       })}
       {posts.length < totalPost ? (
-        <div className="w-100 mb-3">
+        <div className="w-100 mb-5">
           <Button className="btn-primary w-100" onClick={loadMore}>
             Load More
           </Button>
         </div>
       ) : (
-        <div className="w-100 mb-3 pt-3 text-center border-top text-secondary font-weight-bold">
+        <div className="w-100 mb-5 pt-3 text-center border-top text-secondary font-weight-bold">
           End
         </div>
       )}

@@ -25,7 +25,7 @@ export default function Menu(props: any) {
       </div>
       <ul className="list-group">
         <li className="list-group-item">
-          <Link to="/explorer">Profile</Link>
+          <Link to="/profile">Profile</Link>
         </li>
         <li className="list-group-item">
           <Link to="/messages">Messages</Link>

@@ -21,7 +21,11 @@ function Navbar(props: any) {
         <div className="container">
           <nav className="navbar navbar-expand navbar-light justify-content-between">
             <div className="brand">
-              <Link className="h1 navbar-brand" to="/">
+              <Link
+                className="h1 navbar-brand"
+                to="/"
+                onClick={() => window.scrollTo(0, 0)}
+              >
                 Hi
               </Link>
             </div>
@@ -38,7 +42,8 @@ function Navbar(props: any) {
                   <Link
                     className="nav-link active"
                     aria-current="page"
-                    to="/#top"
+                    to="/"
+                    onClick={() => window.scrollTo(0, 0)}
                   >
                     <img src={icHome} alt="" />
                   </Link>
@@ -105,7 +110,11 @@ function Navbar(props: any) {
               <ul className="navbar-nav justify-content-between">
                 <li className="nav-item">
                   <Link className="nav-link active" aria-current="page" to="/">
-                    <img src={icHome} alt="" />
+                    <img
+                      src={icHome}
+                      alt=""
+                      onClick={() => window.scrollTo(0, 0)}
+                    />
                   </Link>
                 </li>
                 <li className="nav-item">
