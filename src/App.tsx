@@ -4,6 +4,7 @@ import history from "./utils/history";
 
 import Home from "./pages/private/Home";
 import Tag from "./pages/private/Tag";
+import Profile from "./pages/private/Profile";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -42,6 +43,12 @@ function App(props: any) {
           path="/"
           render={() =>
             isAuthenticated(<Home {...props} />, <Redirect to="/login" />)
+          }
+        />
+        <Route
+          path="/user"
+          render={() =>
+            isAuthenticated(<Profile {...props} />, <Redirect to="/login" />)
           }
         />
         <Route

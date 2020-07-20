@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export function User(props: any) {
   return (
     <Link
-      to={`/${props.href}`}
+      to={`/user/${props.href}`}
       className={`text-dark ${props.className}`}
       style={props.style}
     >

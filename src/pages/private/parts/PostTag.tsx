@@ -36,7 +36,7 @@ export default function PostTag(props: any) {
       .catch((err) => {
         toast.dark("Network unavailable, try again");
       });
-    // getAllTags();
+    getAllTags(tagParam);
   };
 
   useEffect(() => {
@@ -96,7 +96,10 @@ export default function PostTag(props: any) {
 
                         <div className="comment-item mt-1">
                           {item.commentCount > 5 ? (
-                            <Link className="font-weight-bold" to="/">
+                            <Link
+                              className="font-weight-bold"
+                              to={`/user/${item.userId.username}/${item._id}`}
+                            >
                               More...
                             </Link>
                           ) : (

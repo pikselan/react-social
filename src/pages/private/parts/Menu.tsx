@@ -9,7 +9,7 @@ export default function Menu(props: any) {
       <div className="">
         <div className="d-flex align-items-center flex-wrap">
           <img src={user.photo} className="rounded-circle mr-3 mb-2" alt="" />
-          <div className="d-flex align-items-start flex-column flex-wrap">
+          <div className="d-flex align-items-start flex-column flex-wrap w-100">
             <User href={user.username} className="h5" isName>
               {user.name}
             </User>
@@ -25,7 +25,9 @@ export default function Menu(props: any) {
       </div>
       <ul className="list-group">
         <li className="list-group-item">
-          <Link to="/profile">Profile</Link>
+          <User href={user.username} isName>
+            Profile
+          </User>
         </li>
         <li className="list-group-item">
           <Link to="/messages">Messages</Link>
