@@ -35,7 +35,11 @@ function Navbar(props: any) {
             <div className="menu">
               <ul className="navbar-nav justify-content-end">
                 <li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/#top"
+                  >
                     <img src={icHome} alt="" />
                   </Link>
                 </li>

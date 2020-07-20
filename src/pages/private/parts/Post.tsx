@@ -9,11 +9,29 @@ import imageCompression from "browser-image-compression";
 export default function Post(props: any) {
   const [posts, setPosts] = useState<any>([]);
   const [image, setImage] = useState({ preview: "", raw: "" });
+  const [nextPage, setNextPage] = useState(2);
+  const [totalPost, setTotalPost] = useState(0);
 
   const getAllPosts = async () => {
     await axios
       .get("/users/posts")
-      .then((res) => setPosts(res.data.docs))
+      .then((res) => {
+        setPosts(res.data.docs);
+        setTotalPost(res.data.totalDocs);
+      })
+      .catch((err) => {
+        toast.dark("Network unavailable, try again");
+      });
+  };
+
+  const loadMore = async () => {
+    await axios
+      .get(`/users/posts/${nextPage}`)
+      .then((res) => {
+        setPosts(posts.concat(res.data.docs));
+        setTotalPost(res.data.totalDocs);
+        setNextPage(nextPage + 1);
+      })
       .catch((err) => {
         toast.dark("Network unavailable, try again");
       });
@@ -106,7 +124,7 @@ export default function Post(props: any) {
 
   return (
     <div className="status col-md-5">
-      <div className="card">
+      <div className="card" id="top">
         <div className="card-body">
           <form onSubmit={postStatus}>
             <textarea
@@ -234,6 +252,17 @@ export default function Post(props: any) {
           </div>
         );
       })}
+      {posts.length < totalPost ? (
+        <div className="w-100 mb-3">
+          <Button className="btn-primary w-100" onClick={loadMore}>
+            Load More
+          </Button>
+        </div>
+      ) : (
+        <div className="w-100 mb-3 pt-3 text-center border-top text-secondary font-weight-bold">
+          End
+        </div>
+      )}
     </div>
   );
 }
